@@ -1,0 +1,112 @@
+[
+  {
+    "Id": 1,
+    "courseId": 1,
+    "title": "Midterm Exam",
+    "type": "Exam",
+    "dueDate": "2024-03-15T09:00:00.000Z",
+    "points": 100,
+    "earnedPoints": 87,
+    "completed": true,
+    "priority": "High"
+  },
+  {
+    "Id": 2,
+    "courseId": 1,
+    "title": "Research Paper Draft",
+    "type": "Project",
+    "dueDate": "2024-03-25T23:59:00.000Z",
+    "points": 50,
+    "earnedPoints": null,
+    "completed": false,
+    "priority": "Medium"
+  },
+  {
+    "Id": 3,
+    "courseId": 2,
+    "title": "Limits and Continuity Quiz",
+    "type": "Quiz",
+    "dueDate": "2024-03-18T14:30:00.000Z",
+    "points": 25,
+    "earnedPoints": null,
+    "completed": false,
+    "priority": "Medium"
+  },
+  {
+    "Id": 4,
+    "courseId": 2,
+    "title": "Homework Set 5",
+    "type": "Homework",
+    "dueDate": "2024-03-20T23:59:00.000Z",
+    "points": 30,
+    "earnedPoints": 28,
+    "completed": true,
+    "priority": "Low"
+  },
+  {
+    "Id": 5,
+    "courseId": 3,
+    "title": "Essay on Shakespeare",
+    "type": "Essay",
+    "dueDate": "2024-03-22T11:59:00.000Z",
+    "points": 75,
+    "earnedPoints": null,
+    "completed": false,
+    "priority": "High"
+  },
+  {
+    "Id": 6,
+    "courseId": 4,
+    "title": "Cell Division Lab Report",
+    "type": "Project",
+    "dueDate": "2024-03-19T17:00:00.000Z",
+    "points": 40,
+    "earnedPoints": null,
+    "completed": false,
+    "priority": "Medium"
+  },
+  {
+    "Id": 7,
+    "courseId": 5,
+    "title": "Chapter 8-10 Quiz",
+    "type": "Quiz",
+    "dueDate": "2024-03-21T13:00:00.000Z",
+    "points": 35,
+    "earnedPoints": null,
+    "completed": false,
+    "priority": "Low"
+  },
+  {
+    "Id": 8,
+    "courseId": 1,
+    "title": "Chapter 3 Reading Response",
+    "type": "Homework",
+    "dueDate": "2024-03-16T23:59:00.000Z",
+    "points": 15,
+    "earnedPoints": 14,
+    "completed": true,
+    "priority": "Low"
+  },
+  {
+    "Id": 9,
+    "courseId": 2,
+    "title": "Integration Techniques Exam",
+    "type": "Exam",
+    "dueDate": "2024-03-28T10:00:00.000Z",
+    "points": 120,
+    "earnedPoints": null,
+    "completed": false,
+    "priority": "High"
+  },
+  {
+    "Id": 10,
+    "courseId": 3,
+    "title": "Peer Review Workshop",
+    "type": "Project",
+    "dueDate": "2024-03-24T15:30:00.000Z",
+    "points": 20,
+    "earnedPoints": null,
+    "completed": false,
+    "priority": "Medium"
+  }
+]
