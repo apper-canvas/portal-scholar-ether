@@ -35,7 +35,7 @@ const StudyTimer = ({ courses, onSessionComplete, className }) => {
       setTimeLeft(5 * 60); // 5 minute break
       if (onSessionComplete) {
         onSessionComplete({
-          courseId: selectedCourseId,
+courseId: selectedCourseId,
           duration: 25 * 60,
           date: new Date(),
           type: "study"
@@ -120,7 +120,7 @@ const StudyTimer = ({ courses, onSessionComplete, className }) => {
             {isBreak 
               ? "Take a break! You've earned it." 
               : selectedCourseId 
-                ? `Studying ${courses.find(c => c.Id === parseInt(selectedCourseId))?.name}`
+? `Studying ${courses.find(c => c.Id === parseInt(selectedCourseId))?.name_c || courses.find(c => c.Id === parseInt(selectedCourseId))?.Name}`
                 : "Select a course to start studying"
             }
           </p>

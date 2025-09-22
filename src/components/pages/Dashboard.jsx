@@ -47,24 +47,23 @@ const Dashboard = () => {
     loadDashboardData();
   }, []);
 
-  const calculateGPA = () => {
+const calculateGPA = () => {
     if (courses.length === 0) return 0;
     let totalPoints = 0;
     let totalCredits = 0;
     
     courses.forEach(course => {
-      const gradePoints = (course.currentGrade / 100) * 4.0;
-      totalPoints += gradePoints * course.credits;
-      totalCredits += course.credits;
+      const gradePoints = ((course.current_grade_c || 0) / 100) * 4.0;
+      totalPoints += gradePoints * (course.credits_c || 0);
+      totalCredits += (course.credits_c || 0);
     });
-    
     return totalCredits > 0 ? totalPoints / totalCredits : 0;
   };
 
-  const getUpcomingAssignments = () => {
+const getUpcomingAssignments = () => {
     const upcoming = assignments
-      .filter(assignment => !assignment.completed)
-      .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+      .filter(assignment => !(assignment.completed_c))
+      .sort((a, b) => new Date(a.due_date_c) - new Date(b.due_date_c))
       .slice(0, 5);
     return upcoming;
   };
@@ -72,23 +71,22 @@ const Dashboard = () => {
   const getCompletedAssignments = () => {
     return assignments.filter(assignment => assignment.completed);
   };
-
-  const getTotalStudyTime = () => {
+const getTotalStudyTime = () => {
     const thisWeek = studySessions
       .filter(session => {
-        const sessionDate = new Date(session.date);
+        const sessionDate = new Date(session.date_c);
         const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
         return sessionDate >= weekAgo;
       })
-      .reduce((total, session) => total + session.duration, 0);
+      .reduce((total, session) => total + (session.duration_c || 0), 0);
     
     return Math.round(thisWeek / 60); // Convert to minutes
   };
 
-  const handleToggleAssignment = async (assignmentId) => {
+const handleToggleAssignment = async (assignmentId) => {
     try {
       const assignment = assignments.find(a => a.Id === assignmentId);
-      const updatedAssignment = { ...assignment, completed: !assignment.completed };
+      const updatedAssignment = { ...assignment, completed_c: !assignment.completed_c };
       
       await assignmentService.update(assignmentId, updatedAssignment);
       setAssignments(prev => prev.map(a => 
@@ -96,25 +94,24 @@ const Dashboard = () => {
       ));
       
       toast.success(
-        updatedAssignment.completed ? "Assignment completed!" : "Assignment marked as incomplete"
+        updatedAssignment.completed_c ? "Assignment completed!" : "Assignment marked as incomplete"
       );
     } catch (err) {
       toast.error("Failed to update assignment");
     }
   };
 
-  const handleSessionComplete = async (sessionData) => {
+const handleSessionComplete = async (sessionData) => {
     try {
       const newSession = {
-        Id: Date.now(),
-        courseId: parseInt(sessionData.courseId),
-        duration: sessionData.duration,
-        date: sessionData.date.toISOString(),
-        notes: ""
+        course_id_c: parseInt(sessionData.courseId),
+        duration_c: sessionData.duration,
+        date_c: sessionData.date.toISOString(),
+        notes_c: ""
       };
       
       await studySessionService.create(newSession);
-      setStudySessions(prev => [...prev, newSession]);
+      loadDashboardData(); // Reload data to get fresh from database
       toast.success("Study session completed!");
     } catch (err) {
       toast.error("Failed to save study session");
@@ -215,7 +212,7 @@ const Dashboard = () => {
               ) : (
                 <div className="space-y-3">
                   {upcomingAssignments.map(assignment => {
-                    const course = courses.find(c => c.Id === assignment.courseId);
+const course = courses.find(c => c.Id === assignment.course_id_c?.Id || assignment.course_id_c);
                     return (
                       <AssignmentItem
                         key={assignment.Id}
@@ -252,17 +249,17 @@ const Dashboard = () => {
               ) : (
                 <div className="space-y-4">
                   {courses.slice(0, 4).map(course => (
-                    <div key={course.Id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+<div key={course.Id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
                       <div>
-                        <h4 className="font-medium text-slate-900">{course.name}</h4>
-                        <p className="text-sm text-slate-500">{course.code}</p>
+                        <h4 className="font-medium text-slate-900">{course.name_c || course.Name}</h4>
+                        <p className="text-sm text-slate-500">{course.code_c}</p>
                       </div>
                       <div className="text-right">
                         <div className="text-lg font-bold text-primary-600">
-                          {course.currentGrade}%
+                          {course.current_grade_c}%
                         </div>
                         <div className="text-xs text-slate-500">
-                          {course.credits} credits
+                          {course.credits_c} credits
                         </div>
                       </div>
                     </div>

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
+import { AuthContext } from "../../App";
 
 const Header = ({ onToggleMobileSidebar, title = "Dashboard", subtitle }) => {
+  const { logout } = useContext(AuthContext);
+
   return (
     <header className="bg-white border-b border-slate-200 px-4 lg:px-8 py-4">
       <div className="flex items-center justify-between">
@@ -33,6 +36,15 @@ const Header = ({ onToggleMobileSidebar, title = "Dashboard", subtitle }) => {
               day: "numeric" 
             })}</span>
           </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={logout}
+            className="flex items-center space-x-2"
+          >
+            <ApperIcon name="LogOut" size={16} />
+            <span>Logout</span>
+          </Button>
         </div>
       </div>
     </header>

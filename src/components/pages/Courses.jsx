@@ -19,14 +19,14 @@ const Courses = () => {
   const [error, setError] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingCourse, setEditingCourse] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    code: "",
-    professor: "",
-    credits: "",
-    semester: "",
-    currentGrade: "",
-    targetGrade: ""
+const [formData, setFormData] = useState({
+    name_c: "",
+    code_c: "",
+    professor_c: "",
+    credits_c: "",
+    semester_c: "",
+    current_grade_c: "",
+    target_grade_c: ""
   });
 
   const loadCourses = async () => {
@@ -62,14 +62,14 @@ const Courses = () => {
   };
 
   const handleEdit = (course) => {
-    setFormData({
-      name: course.name,
-      code: course.code,
-      professor: course.professor,
-      credits: course.credits.toString(),
-      semester: course.semester,
-      currentGrade: course.currentGrade.toString(),
-      targetGrade: course.targetGrade.toString()
+setFormData({
+      name_c: course.name_c || course.Name,
+      code_c: course.code_c,
+      professor_c: course.professor_c,
+      credits_c: (course.credits_c || 0).toString(),
+      semester_c: course.semester_c,
+      current_grade_c: (course.current_grade_c || 0).toString(),
+      target_grade_c: (course.target_grade_c || 0).toString()
     });
     setEditingCourse(course);
     setShowAddForm(true);
@@ -79,11 +79,11 @@ const Courses = () => {
     e.preventDefault();
     
     try {
-      const courseData = {
+const courseData = {
         ...formData,
-        credits: parseInt(formData.credits),
-        currentGrade: parseFloat(formData.currentGrade),
-        targetGrade: parseFloat(formData.targetGrade)
+        credits_c: parseInt(formData.credits_c),
+        current_grade_c: parseFloat(formData.current_grade_c),
+        target_grade_c: parseFloat(formData.target_grade_c)
       };
 
       if (editingCourse) {
@@ -91,11 +91,8 @@ const Courses = () => {
         await courseService.update(editingCourse.Id, updatedCourse);
         setCourses(prev => prev.map(c => c.Id === editingCourse.Id ? updatedCourse : c));
         toast.success("Course updated successfully!");
-      } else {
-        const newCourse = {
-          Id: Date.now(),
-          ...courseData
-        };
+} else {
+        const newCourse = courseData;
         await courseService.create(newCourse);
         setCourses(prev => [...prev, newCourse]);
         toast.success("Course added successfully!");
@@ -112,15 +109,15 @@ const Courses = () => {
     navigate(`/assignments?course=${courseId}`);
   };
 
-  const calculateOverallGPA = () => {
+const calculateOverallGPA = () => {
     if (courses.length === 0) return 0;
     let totalPoints = 0;
     let totalCredits = 0;
     
     courses.forEach(course => {
-      const gradePoints = (course.currentGrade / 100) * 4.0;
-      totalPoints += gradePoints * course.credits;
-      totalCredits += course.credits;
+      const gradePoints = ((course.current_grade_c || 0) / 100) * 4.0;
+      totalPoints += gradePoints * (course.credits_c || 0);
+      totalCredits += (course.credits_c || 0);
     });
     
     return totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "0.00";
@@ -207,12 +204,12 @@ const Courses = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+<label className="block text-sm font-medium text-slate-700 mb-2">
                   Professor
                 </label>
                 <Input
-                  value={formData.professor}
-                  onChange={(e) => setFormData(prev => ({...prev, professor: e.target.value}))}
+                  value={formData.professor_c}
+                  onChange={(e) => setFormData(prev => ({...prev, professor_c: e.target.value}))}
                   placeholder="Dr. Smith"
                   required
                 />
@@ -221,9 +218,9 @@ const Courses = () => {
                 <label className="block text-sm font-medium text-slate-700 mb-2">
                   Credits
                 </label>
-                <Select
-                  value={formData.credits}
-                  onChange={(e) => setFormData(prev => ({...prev, credits: e.target.value}))}
+<Select
+                  value={formData.credits_c}
+                  onChange={(e) => setFormData(prev => ({...prev, credits_c: e.target.value}))}
                   required
                 >
                   <option value="">Select Credits</option>
@@ -238,9 +235,9 @@ const Courses = () => {
                 <label className="block text-sm font-medium text-slate-700 mb-2">
                   Semester
                 </label>
-                <Select
-                  value={formData.semester}
-                  onChange={(e) => setFormData(prev => ({...prev, semester: e.target.value}))}
+<Select
+                  value={formData.semester_c}
+                  onChange={(e) => setFormData(prev => ({...prev, semester_c: e.target.value}))}
                   required
                 >
                   <option value="">Select Semester</option>
@@ -253,13 +250,13 @@ const Courses = () => {
                 <label className="block text-sm font-medium text-slate-700 mb-2">
                   Current Grade (%)
                 </label>
-                <Input
+<Input
                   type="number"
                   min="0"
                   max="100"
                   step="0.1"
-                  value={formData.currentGrade}
-                  onChange={(e) => setFormData(prev => ({...prev, currentGrade: e.target.value}))}
+                  value={formData.current_grade_c}
+                  onChange={(e) => setFormData(prev => ({...prev, current_grade_c: e.target.value}))}
                   placeholder="85.5"
                   required
                 />
@@ -268,13 +265,13 @@ const Courses = () => {
                 <label className="block text-sm font-medium text-slate-700 mb-2">
                   Target Grade (%)
                 </label>
-                <Input
+<Input
                   type="number"
                   min="0"
                   max="100"
                   step="0.1"
-                  value={formData.targetGrade}
-                  onChange={(e) => setFormData(prev => ({...prev, targetGrade: e.target.value}))}
+                  value={formData.target_grade_c}
+                  onChange={(e) => setFormData(prev => ({...prev, target_grade_c: e.target.value}))}
                   placeholder="90.0"
                   required
                 />

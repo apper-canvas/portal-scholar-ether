@@ -7,8 +7,8 @@ import { format } from "date-fns";
 import { cn } from "@/utils/cn";
 
 const AssignmentItem = ({ assignment, course, onToggleComplete, onEdit, className }) => {
-  const isOverdue = new Date(assignment.dueDate) < new Date() && !assignment.completed;
-  const isDueSoon = new Date(assignment.dueDate) <= new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) && !assignment.completed;
+  const isOverdue = new Date(assignment.due_date_c) < new Date() && !assignment.completed_c;
+  const isDueSoon = new Date(assignment.due_date_c) <= new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) && !assignment.completed_c;
 
   const getPriorityColor = (priority) => {
     switch (priority) {
@@ -41,42 +41,42 @@ const AssignmentItem = ({ assignment, course, onToggleComplete, onEdit, classNam
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => onToggleComplete(assignment.Id)}
+onClick={() => onToggleComplete(assignment.Id)}
               className={cn(
                 "p-1 h-6 w-6 rounded-full border-2 transition-all",
-                assignment.completed 
+                assignment.completed_c 
                   ? "bg-primary-500 border-primary-500 text-white" 
                   : "border-slate-300 hover:border-primary-500"
               )}
             >
-              {assignment.completed && <ApperIcon name="Check" size={12} />}
+              {assignment.completed_c && <ApperIcon name="Check" size={12} />}
             </Button>
             <div className="flex-1">
               <div className="flex items-center space-x-2 mb-1">
-                <ApperIcon name={getTypeIcon(assignment.type)} size={16} className="text-slate-500" />
+<ApperIcon name={getTypeIcon(assignment.type_c)} size={16} className="text-slate-500" />
                 <h3 className={cn(
-                  "font-medium",
-                  assignment.completed ? "text-slate-500 line-through" : "text-slate-900"
+"font-medium",
+                  assignment.completed_c ? "text-slate-500 line-through" : "text-slate-900"
                 )}>
-                  {assignment.title}
+                  {assignment.title_c || assignment.Name}
                 </h3>
               </div>
               <div className="flex items-center space-x-4 text-sm text-slate-600">
-                <span className="font-medium text-primary-600">{course?.name || "Unknown Course"}</span>
-                <span>Due: {format(new Date(assignment.dueDate), "MMM d, yyyy")}</span>
-                <span>{assignment.points} points</span>
+<span className="font-medium text-primary-600">{course?.name_c || course?.Name || "Unknown Course"}</span>
+                <span>Due: {format(new Date(assignment.due_date_c), "MMM d, yyyy")}</span>
+                <span>{assignment.points_c} points</span>
               </div>
-              {assignment.earnedPoints !== null && (
+{assignment.earned_points_c !== null && assignment.earned_points_c !== undefined && (
                 <div className="text-sm text-slate-600 mt-1">
-                  Score: {assignment.earnedPoints}/{assignment.points} 
-                  ({Math.round((assignment.earnedPoints / assignment.points) * 100)}%)
+                  Score: {assignment.earned_points_c}/{assignment.points_c} 
+                  ({Math.round((assignment.earned_points_c / assignment.points_c) * 100)}%)
                 </div>
               )}
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <Badge variant={getPriorityColor(assignment.priority)}>
-              {assignment.priority}
+<Badge variant={getPriorityColor(assignment.priority_c)}>
+              {assignment.priority_c}
             </Badge>
             {isOverdue && (
               <Badge variant="danger">

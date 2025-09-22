@@ -25,30 +25,30 @@ const CourseCard = ({ course, onEdit, onViewAssignments, className }) => {
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <CardTitle className="text-lg font-semibold mb-1">{course.name}</CardTitle>
-            <p className="text-sm text-slate-500 font-medium">{course.code}</p>
-            <p className="text-sm text-slate-600 mt-1">{course.professor}</p>
+<CardTitle className="text-lg font-semibold mb-1">{course.name_c || course.Name}</CardTitle>
+            <p className="text-sm text-slate-500 font-medium">{course.code_c}</p>
+            <p className="text-sm text-slate-600 mt-1">{course.professor_c}</p>
           </div>
-          <Badge variant={getGradeBadgeVariant(course.currentGrade)}>
-            {course.currentGrade}%
+          <Badge variant={getGradeBadgeVariant(course.current_grade_c)}>
+            {course.current_grade_c}%
           </Badge>
         </div>
       </CardHeader>
       <CardContent className="pt-0">
         <div className="space-y-3">
           <div className="flex justify-between text-sm">
-            <span className="text-slate-600">Credits:</span>
-            <span className="font-medium">{course.credits}</span>
+<span className="text-slate-600">Credits:</span>
+            <span className="font-medium">{course.credits_c}</span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-slate-600">Target:</span>
-            <span className={cn("font-medium", getGradeColor(course.targetGrade))}>
-              {course.targetGrade}%
+<span className={cn("font-medium", getGradeColor(course.target_grade_c))}>
+              {course.target_grade_c}%
             </span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-slate-600">Semester:</span>
-            <span className="font-medium">{course.semester}</span>
+<span className="text-slate-600">Semester:</span>
+            <span className="font-medium">{course.semester_c}</span>
           </div>
           <div className="flex gap-2 pt-3 border-t border-slate-100">
             <Button 
