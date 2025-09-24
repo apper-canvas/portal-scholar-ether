@@ -4,11 +4,12 @@ import ApperIcon from "@/components/ApperIcon";
 import { cn } from "@/utils/cn";
 
 const Sidebar = ({ className }) => {
-  const navigation = [
+const navigation = [
     { name: "Dashboard", href: "/", icon: "LayoutDashboard" },
     { name: "Courses", href: "/courses", icon: "BookOpen" },
     { name: "Assignments", href: "/assignments", icon: "FileText" },
     { name: "Grades", href: "/grades", icon: "BarChart3" },
+    { name: "Students", href: "/students", icon: "Users" },
     { name: "Calendar", href: "/calendar", icon: "Calendar" }
   ];
 

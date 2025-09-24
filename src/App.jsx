@@ -12,6 +12,7 @@ import Courses from "@/components/pages/Courses";
 import Calendar from "@/components/pages/Calendar";
 import Grades from "@/components/pages/Grades";
 import Assignments from "@/components/pages/Assignments";
+import Students from "@/components/pages/Students";
 import Layout from "@/components/organisms/Layout";
 
 // Create auth context
@@ -127,7 +128,8 @@ function AppContent() {
           <Route index element={<Dashboard />} />
           <Route path="courses" element={<Courses />} />
           <Route path="assignments" element={<Assignments />} />
-          <Route path="grades" element={<Grades />} />
+<Route path="grades" element={<Grades />} />
+          <Route path="students" element={<Students />} />
           <Route path="calendar" element={<Calendar />} />
         </Route>
         <Route path="*" element={<div>404 - Page Not Found</div>} />
