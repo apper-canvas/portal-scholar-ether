@@ -74,17 +74,25 @@ export const studentService = {
     }
   },
 
-  async create(studentData) {
+async create(studentData) {
     try {
+      // Ensure all required fields are present and properly formatted
+      const firstName = (studentData.first_name_c || '').toString().trim();
+      const lastName = (studentData.last_name_c || '').toString().trim();
+      
+      if (!firstName || !lastName) {
+        throw new Error('First name and last name are required');
+      }
+      
       const params = {
         records: [
           {
-            Name: studentData.Name || `${studentData.first_name_c} ${studentData.last_name_c}`,
-            Tags: studentData.Tags || "",
-            first_name_c: studentData.first_name_c || "",
-            last_name_c: studentData.last_name_c || "",
-            email_c: studentData.email_c || "",
-            phone_number_c: studentData.phone_number_c || ""
+            Name: studentData.Name || `${firstName} ${lastName}`,
+            Tags: (studentData.Tags || '').toString().trim(),
+            first_name_c: firstName,
+            last_name_c: lastName,
+            email_c: (studentData.email_c || '').toString().trim(),
+            phone_number_c: (studentData.phone_number_c || '').toString().trim()
           }
         ]
       };

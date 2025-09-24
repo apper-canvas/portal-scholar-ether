@@ -16,7 +16,7 @@ const Students = () => {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editingStudent, setEditingStudent] = useState(null);
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     first_name_c: '',
     last_name_c: '',
     email_c: '',
@@ -83,9 +83,13 @@ const Students = () => {
     try {
       setSubmitting(true);
       
-      const studentData = {
-        ...formData,
-        Name: `${formData.first_name_c.trim()} ${formData.last_name_c.trim()}`
+const studentData = {
+        first_name_c: (formData.first_name_c || '').trim(),
+        last_name_c: (formData.last_name_c || '').trim(),
+        email_c: (formData.email_c || '').trim(),
+        phone_number_c: (formData.phone_number_c || '').trim(),
+        Tags: (formData.Tags || '').trim(),
+        Name: `${(formData.first_name_c || '').trim()} ${(formData.last_name_c || '').trim()}`.trim()
       };
 
       if (editingStudent) {
